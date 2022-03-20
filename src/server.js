@@ -15,11 +15,12 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on('connection', (socket) => {
+    socket.onAny((event) => {
+        console.log(`Socket Event: ${event}`);
+    });
     socket.on('enter_room',(roomName, done) => {
-        console.log(roomName);
-        setTimeout(() => {
-            done('hi!');
-        }, 10000)
+        socket.join(roomName);
+        done();
     });
 });
 
