@@ -15,12 +15,26 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
 
+const sockets = [];
+
 // Put all your backend code here.
 wss.on("connection", ( socket ) => {
-    console.log(socket);
+    sockets.push(socket);
+    socket["nickname"] = "Anonymous";
+    socket.on('message', (msg) => {
+        const message = JSON.parse(msg);
+        switch (message.type) {
+            case "new_message":
+                sockets.forEach((aSocket) =>
+                    aSocket.send(`${socket.nickname}: ${message.payload}`)
+                );
+            case "nickname":
+                socket["nickname"] = message.payload;
+        }
+    })
     socket.on('close', () => {
         console.log('server disconnected');
     })
 })
 
-server.listen(process.env.PORT, handleListen);
+server.listen(3000, handleListen);
