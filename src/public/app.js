@@ -23,7 +23,7 @@ function makeMessage(type, payload) {
     return JSON.stringify(msg);
 }
 
-function handleMessageSubmit(evnet) {
+function handleMessageSubmit(event) {
     event.preventDefault();
     const input = messageForm.querySelector('input');
     socket.send(makeMessage("new_message", input.value));
