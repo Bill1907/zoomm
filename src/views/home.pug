@@ -1,5 +1,5 @@
 doctype html
-html(lang=eng)
+html(lang="en")
     head
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
@@ -10,15 +10,8 @@ html(lang=eng)
         header
             h1 Noom
         main
-            div#welcome
+            ul
                 form
-                    input(placeholder="room name", required=true, type="text" )
-                    button Enter Room
-            div#room
-                h3
-                ul
-                form
-                    input(placeholder="message", required=true, type="text" )
+                    input(type="text", placeholder="write a msg", required)
                     button Send
-        script(src="/socket.io/socket.io.js")
-        script(src="/public/js/app.js")
+        script(src="/public/app.js")
