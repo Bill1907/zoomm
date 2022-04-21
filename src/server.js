@@ -26,8 +26,8 @@ io.on('connection', (socket) => {
     socket.on("disconnecting", () => {
         socket.rooms.forEach(room => socket.to(room).emit('bye'));
     });
-    socket.on('new_message', (msg, room, done) => {
-        socket.to(room).emit('new_message', msg);
+    socket.on('new_message', (msg, room, nickName, done) => {
+        socket.to(room).emit('new_message', `${nickName}: ${msg}`);
         done();
     })
 });
